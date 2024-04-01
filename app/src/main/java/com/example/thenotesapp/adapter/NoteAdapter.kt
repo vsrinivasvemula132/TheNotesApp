@@ -14,6 +14,11 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
 
     class NoteViewHolder(val itemBinding: NoteLayoutBinding): RecyclerView.ViewHolder(itemBinding.root)
 
+//    the differCallback object provides custom implementations for comparing two Note objects based on their identifiers (id)
+//    and content (noteDesc and noteTitle).
+//    This allows RecyclerView adapters to efficiently compute the difference between two lists of Note objects,
+//    enabling optimized updates and smooth user interface transitions when the underlying data changes.
+
     private val differCallback = object : DiffUtil.ItemCallback<Note>(){
         override fun areItemsTheSame(oldItem: Note, newItem: Note): Boolean {
             return oldItem.id == newItem.id &&
@@ -25,6 +30,7 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
             return oldItem == newItem
         }
     }
+
     val differ = AsyncListDiffer(this, differCallback)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
